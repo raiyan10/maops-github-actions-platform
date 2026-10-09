@@ -15,8 +15,9 @@ Related: [roadmap](roadmap.md) · [Day 1 final adjudication](engineering-reviews
 3. After merge, the push to `main` runs CI again with `BUILD_ID` set to the pushed `main` SHA.
 4. Nothing is published or deployed at any step.
 
-Steps 2–3 are the designed path. No GitHub Actions run has happened yet (see
-[evidence index](evidence/day-01/README.md)).
+The pull-request path in step 2 has now been exercised on GitHub, including a controlled
+failed gate and successful recovery. The post-merge `push` → `main` path in step 3 remains pending.
+See the [Day 1 evidence index](evidence/day-01/README.md).
 
 ## Day 1 current architecture
 
@@ -96,7 +97,7 @@ mutable `maops-p5-app:local`; no digest is recorded. Immutable identity is PLANN
 - Generic Make `IMAGE`/`TAG` variable names are not yet shaped for a `workflow_call` interface.
 - The venv stamp does not account for interpreter identity.
 - `actionlint` has not been run.
-- No GitHub Actions run has happened, so runner, cache, concurrency and policy behavior are unproven.
+- The PR workflow has run successfully on GitHub; post-merge `main` execution, main concurrency and repository-policy behavior remain unproven.
 - Branch protection and required checks are not configured as part of this repository.
 
 The full deferred list is in the [final adjudication](engineering-reviews/day-01-final-adjudication.md#deferred-lowinformational-items).

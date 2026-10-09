@@ -17,10 +17,11 @@ Status key: **Completed (local)** · **Pending** · **PLANNED**
 | `.github/workflows/ci.yml` authored | Completed (local) |
 | Claude Code agents and `workflow-validation` Skill | Completed (local) |
 | Independent review, targeted remediation, targeted re-review | Completed (local) — see [final adjudication](engineering-reviews/day-01-final-adjudication.md) |
-| Commit, push and pull request (user Git sequence) | Pending |
-| First GitHub Actions run on PR and on `main` | Pending |
+| Commit, push and pull request (user Git sequence) | Completed |
+| First GitHub Actions run on PR | Completed — initial green, controlled failure, recovered green |
+| First GitHub Actions run after merge to `main` | Pending |
 | Branch protection / required-check configuration | Pending |
-| First real failed CI gate and corrected rerun | Pending |
+| First real failed CI gate and corrected rerun | Completed |
 
 ## Day 2 — Reusable workflow and artifact identity (PLANNED)
 

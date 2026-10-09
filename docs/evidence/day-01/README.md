@@ -1,7 +1,8 @@
 # Day 1 Evidence Index
 
-**No GitHub Actions run, pull request, screenshot, tag or release exists yet.** This index lists
-only what has been established locally and what remains to be proven on GitHub.
+Pull request **#1** now has real GitHub Actions evidence, including an initial successful run,
+a controlled failed gate and a successful recovery. No screenshot, tag or release exists yet.
+Post-merge `main` validation remains pending.
 
 ## Established locally
 
@@ -17,17 +18,26 @@ only what has been established locally and what remains to be proven on GitHub.
 
 These are local results; their raw console output is not stored in the repository.
 
+## GitHub PR evidence
+
+See [GitHub Actions PR gate evidence](github-actions-pr-gate.md).
+
+The PR sequence is:
+
+1. run `37952275253` — initial candidate — **SUCCESS**
+2. run `37958478152` — controlled `/healthz` regression — **FAILURE**
+3. run `37960799333` — regression reverted — **SUCCESS**
+
+The failed run stopped at `Run tests` with 2 failed and 6 passed; image build and smoke testing were not executed.
+
 ## Pending from GitHub
 
-- Pinned actions execute successfully on GitHub-hosted `ubuntu-24.04`.
-- `setup-python` `python-path` works with the fresh venv flow.
+- Post-merge `push` → `main` workflow execution.
 - pip cache save/restore behavior.
 - Actual PR cancellation behavior.
 - Actual `main` per-SHA concurrency behavior.
-- Workflow pass and fail logs.
 - Fork PR / repository policy behavior.
 - Branch protection / required-check configuration.
-- First real failed CI gate and corrected rerun.
 
 When these exist, record them here by reference (run URL, commit SHA, PR number).
 
