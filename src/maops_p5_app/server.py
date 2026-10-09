@@ -22,7 +22,7 @@ def route(method: str, path: str) -> tuple[HTTPStatus, dict]:
     if method != "GET":
         return HTTPStatus.METHOD_NOT_ALLOWED, {"error": "method not allowed"}
     if path == "/healthz":
-        return HTTPStatus.OK, {"status": "ok"}
+        return HTTPStatus.OK, {"status": "degraded"}
     if path == "/info":
         return HTTPStatus.OK, {
             "service": SERVICE_NAME,
