@@ -1,0 +1,54 @@
+# Day 1 CI: validate the workload through the repository's Make interface.
+# Runs on GitHub-hosted runners only. Builds and smoke-tests locally; publishes nothing.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# PR runs share a group and superseded runs are cancelled; each pushed main head SHA gets its own group.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.sha }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  validate:
+    name: Test, build and smoke-test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      # github.sha is the commit actually checked out: the PR merge commit, or the pushed main commit.
+      BUILD_ID: ${{ github.sha }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python 3.13
+        id: setup-python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Run tests
+        env:
+          PYTHON: ${{ steps.setup-python.outputs.python-path }}
+        run: make test
+
+      - name: Build container image
+        run: make image
+
+      - name: Smoke-test container
+        run: make smoke
