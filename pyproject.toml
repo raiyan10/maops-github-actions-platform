@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "maops-p5-app"
+version = "0.1.0"
+description = "Minimal HTTP workload used to demonstrate the MAOps P5 CI/CD platform."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3,<9"]
+
+[project.scripts]
+maops-p5-app = "maops_p5_app.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/maops_p5_app"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
